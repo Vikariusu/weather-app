@@ -3,22 +3,65 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
+    <h3 class="city"></h3>
+    <div class="city">
 
-    <div class="location-div">
+    </div>
+    <div class="location-div"></div>
 
+    <!-- <button class="get-api"></button> -->
+
+    <div class="weather-container">
+      <div class="temp"></div>
+      <div class="icon"></div>
+      <div class="description"></div>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
-    // get location
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          $(".location-div").html("latitude: " + position.coords.latitude + "<br>longitude: " + position.coords.longitude);
-        });
-      }
+      $(document).ready(function() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            let lat = Math.round(position.coords.latitude * 10) / 10;
+            let lon = Math.round(position.coords.longitude * 10) / 10;
 
+            $(".location-div").html("latitude: " + lat + "<br>longitude: " + lon );
+
+            $.getJSON(`https://fcc-weather-api.glitch.me/api/current?lat=${lat}&lon=${lon}`, function(json) {
+              // console.log(json);
+              // console.log(json.main.temp);
+              // console.log(`<img src=${json.weather[0].icon}>`);
+              $(".city").html(json.name);
+              $(".temp").html(json.main.temp);
+              $(".icon").html(`<img src=${json.weather[0].icon}>`);
+              $(".description").html(json.weather[0].description);
+            });
+          });
+        }
+
+        // $.getJSON(`https://fcc-weather-api.glitch.me/api/current?lat=${lat1}&lon=139`, function(json) {
+        //   $(".city").html(json.name);
+        //   $(".temp").html(json.main.temp);
+        //   $(".icon").html(json.weather[0].icon);
+        //   $(".description").html(json.weather[0].description);
+        // });
+
+        // $(".get-api").on("click", function(){
+        //   $.getJSON("https://fcc-weather-api.glitch.me/api/current?lat=35&lon=139", function(json) {
+        //     // console.log(json.coord);
+        //     // console.log(json.weather[0].icon);
+        //     // console.log(json.weather[0].description);
+        //
+        //     // $(".api-response").html(JSON.stringify(json));
+        //     $(".temp").html(json.main.temp);
+        //     $(".icon").html(json.weather[0].icon);
+        //     $(".description").html(json.weather[0].description);
+        //   });
+        // });
+      });
 
     </script>
   </body>

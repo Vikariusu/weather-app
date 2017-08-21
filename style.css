@@ -1,0 +1,10 @@
+.weather-container {
+  display: flex;
+  /*justify-content: space-between; */
+  justify-content: center; /*centers items on the line (the x-axis by default)*/
+  align-items: center;
+}
+
+body {
+  background-color: #3d818c;
+}
