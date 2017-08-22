@@ -21,8 +21,6 @@ h1 {
   font-weight: lighter;
   letter-spacing: 1.4px;
   text-transform: uppercase;
-
-
 }
 
 .header {
@@ -70,6 +68,8 @@ h1 {
   background-color: #D8BD5A;
   border: none;
   border-radius: 2px;
+  height: 35px;
+  width: 65px;
 }
 
 .convert-btn:focus {
