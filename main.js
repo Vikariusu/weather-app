@@ -13,7 +13,8 @@ function renderPage() {
   $(".temperature").html(`${Math.round(temperature)} ${temperatureType}`);
   $(".description").html(weatherCondition);
   $(".wind").html(`${wind} m/s`);
-  $(".container").css("background-image", `url(${changeBackground()})`);
+  // $(".container").css("background-image", `url(${changeBackground()})`);
+  $(".container").css(`background-image`, `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.1)), url(${changeBackground()})`);
 }
 
 function changeBackground() {
@@ -65,11 +66,11 @@ $(document).ready(function() {
 
         renderPage();
 
-        $( ".convert" ).click(function() {
+        $(".convert-btn").click(function() {
           convertTemp();
           renderPage();
         });
       });
     });
-  }
-});
+  };
+})
