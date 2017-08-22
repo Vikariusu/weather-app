@@ -15,18 +15,19 @@ function renderPage() {
   $(".temperature").html(`${Math.round(temperature)} ${temperatureType}`);
   $(".description").html(weatherCondition);
   $(".wind").html(`${wind} m/s`);
-  $(".container").css(`background-image`, `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.1)), url(${changeBackground()})`);
+  $(".container").css(`background-image`, `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(${changeBackground()})`);
 }
 
 function changeBackground() {
-  if (weatherCondition == "scattered clouds" || weatherCondition == "broken clouds") {
+
+  if (isRaining) {
+    return "https://images.unsplash.com/photo-1485797460056-2310c82d1213?dpr=2&auto=format&fit=crop&w=1080&h=720&q=80&cs=tinysrgb&crop=";
+  } else if (weatherCondition == "scattered clouds" || weatherCondition == "broken clouds") {
     return "https://images.unsplash.com/photo-1455735459330-969b65c65b1c?dpr=2&auto=format&fit=crop&w=1080&h=718&q=80&cs=tinysrgb&crop=";
   } else if (weatherCondition == "few clouds") {
     return "https://images.unsplash.com/photo-1432879697443-4ab411c5962d?dpr=2&auto=format&fit=crop&w=1080&h=720&q=80&cs=tinysrgb&crop=";
   } else if (cloudCoverage > 70) {
     return "https://images.unsplash.com/photo-1468268182561-2967b44d231e?dpr=2&auto=format&fit=crop&w=1080&h=720&q=80&cs=tinysrgb&crop=";
-  } else if (isRaining) {
-    return "https://images.unsplash.com/photo-1485797460056-2310c82d1213?dpr=2&auto=format&fit=crop&w=1080&h=720&q=80&cs=tinysrgb&crop=";
   } else if (weatherCondition == "clear sky") {
     return "https://images.unsplash.com/photo-1455243732493-b877e31e0fae?dpr=2&auto=format&fit=crop&w=1080&h=720&q=80&cs=tinysrgb&crop=";
   } else {
@@ -46,14 +47,10 @@ function convertTemp() {
 }
 
 $(document).ready(function() {
-
-
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       let lat = Math.round(position.coords.latitude * 10) / 10;
       let lon = Math.round(position.coords.longitude * 10) / 10;
-
-      // $(".location-div").html("latitude: " + lat + "<br>longitude: " + lon );
 
       $.getJSON(`https://fcc-weather-api.glitch.me/api/current?lat=${lat}&lon=${lon}`, function(json) {
         // console.log(json);
@@ -61,7 +58,11 @@ $(document).ready(function() {
         city = json.name;
         weatherCondition = json.weather[0].description;
         wind = json.wind.speed;
-        isRaining = json.rain;
+        if (json.rain == undefined) {
+          isRaining = false;
+        } else {
+          isRaining = true;
+        }
         cloudCoverage = json.clouds.all;
         temperatureType = "C";
 
