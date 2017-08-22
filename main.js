@@ -7,13 +7,14 @@ var cloudCoverage;
 var temperatureType;
 
 function renderPage() {
-  $(".text").html(`<p class="weather-p">You're in <span class="city"></span>. The temperature is <span class="temperature"></span>,  <span class="description"></span> with wind speed of <span class="wind"></span>.</p>
+  $(".convert-btn").removeClass("hidden");
+
+  $(".text").html(`<p class="weather-p">You're in <span class="city"></span>. The temperature is <span class="temperature"></span>, with <span class="description"></span> and a wind speed of <span class="wind"></span>.</p>
 `);
   $(".city").html(city);
   $(".temperature").html(`${Math.round(temperature)} ${temperatureType}`);
   $(".description").html(weatherCondition);
   $(".wind").html(`${wind} m/s`);
-  // $(".container").css("background-image", `url(${changeBackground()})`);
   $(".container").css(`background-image`, `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.1)), url(${changeBackground()})`);
 }
 

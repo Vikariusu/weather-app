@@ -5,6 +5,10 @@ body {
   margin: 0;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 .container {
   background-size: cover !important;
   height: 100vh;
@@ -13,7 +17,6 @@ body {
   display: flex;
   justify-content: center; /*centers items on the line (the x-axis by default)*/
   align-items: center;
-  /*border: 1px solid red;*/
 }
 
 h1 {
