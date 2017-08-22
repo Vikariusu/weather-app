@@ -9,77 +9,17 @@
   <body>
     <!-- style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.4)), url('https://images.unsplash.com/uploads/14116603688211a68546c/30f8f30b?dpr=2&auto=format&fit=crop&w=1080&h=720&q=80&cs=tinysrgb&crop=');"> -->
 
-    <div class="container">
+    <div class="container" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.4));">
       <div class="header">
         <h1>Weather for your city</h3>
         <p>by <a href="https://vikariusu.github.io/" target="_blank" >Vikariusu</a></p>
       </div>
-
-        <div class="text"></div>
-
+      <div class="text"></div>
+      <button type="button" name="button" class="convert">Convert!</button>
     </div>
     <!-- <p class="weather-p">You're in <span class="city"></span>. The temperature is <span class="temp"></span>,  <span class="description"></span>.</p> -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script>
-      $(document).ready(function() {
-        function changeBackground(json) {
-          console.log(json);
-
-          if (json.weather[0].description == "scattered clouds" || json.weather.description == "broken clouds") {
-            return "https://images.unsplash.com/photo-1455735459330-969b65c65b1c?dpr=2&auto=format&fit=crop&w=1080&h=718&q=80&cs=tinysrgb&crop=";
-          } else if (json.weather[0].description == "few clouds") {
-            return "https://images.unsplash.com/photo-1432879697443-4ab411c5962d?dpr=2&auto=format&fit=crop&w=1080&h=720&q=80&cs=tinysrgb&crop=";
-          } else if (json.clouds.all > 70) {
-            return "https://images.unsplash.com/photo-1468268182561-2967b44d231e?dpr=2&auto=format&fit=crop&w=1080&h=720&q=80&cs=tinysrgb&crop=";
-          } else if (json.rain) {
-            return "https://images.unsplash.com/photo-1485797460056-2310c82d1213?dpr=2&auto=format&fit=crop&w=1080&h=720&q=80&cs=tinysrgb&crop=";
-          } else if (json.weather[0].main == "Clear") {
-            return "https://images.unsplash.com/photo-1494029466100-e03349a90658?dpr=2&auto=format&fit=crop&w=1080&h=720&q=80&cs=tinysrgb&crop=";
-          } else {
-            return "https://images.unsplash.com/reserve/bOvf94dPRxWu0u3QsPjF_tree.jpg?dpr=2&auto=format&fit=crop&w=1080&h=715&q=80&cs=tinysrgb&crop=";
-          }
-        }
-
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            let lat = Math.round(position.coords.latitude * 10) / 10;
-            let lon = Math.round(position.coords.longitude * 10) / 10;
-
-            $(".location-div").html("latitude: " + lat + "<br>longitude: " + lon );
-
-            $.getJSON(`https://fcc-weather-api.glitch.me/api/current?lat=${lat}&lon=${lon}`, function(json) {
-              // console.log(json);
-              // console.log(json.main.temp);
-              // console.log(`<img src=${json.weather[0].icon}>`);
-              $(".text").html(`<p class="weather-p">You're in <span class="city"></span>. The temperature is <span class="temp"></span>,  <span class="description"></span>.</p>
-`);
-              $(".city").html(json.name);
-              $(".temp").html(`${Math.round(json.main.temp)} C`);
-              // $(".icon").html(`<img src=${json.weather[0].icon}>`);
-              $(".description").html(json.weather[0].description);
-              console.log(changeBackground(json));
-              $(".container").css("background-image", `url(${changeBackground(json)})`);
-            });
-          });
-        }
-
-        // var toggleCelsius = () => f
-
-        // $(".get-api").on("click", function(){
-        //   $.getJSON("https://fcc-weather-api.glitch.me/api/current?lat=35&lon=139", function(json) {
-        //     // console.log(json.coord);
-        //     // console.log(json.weather[0].icon);
-        //     // console.log(json.weather[0].description);
-        //
-        //     // $(".api-response").html(JSON.stringify(json));
-        //     $(".temp").html(json.main.temp);
-        //     $(".icon").html(json.weather[0].icon);
-        //     $(".description").html(json.weather[0].description);
-        //   });
-        // });
-      });
-
-    </script>
+    <script src="main.js"></script>
   </body>
 </html>
